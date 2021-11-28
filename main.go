@@ -15,7 +15,9 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "<h1>Contact Page</h1>")
 }
 
-func routesHandler(w http.ResponseWriter, r *http.Request) {
+type Router struct{}
+
+func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
 	case "/":
 		landingHandler(w, r)
@@ -29,8 +31,10 @@ func routesHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", routesHandler)
+	var router Router
 
 	fmt.Println("Starting server on port :3000")
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":3000", router)
 }
+
+// WIP - pick up on lesson 3.4!
