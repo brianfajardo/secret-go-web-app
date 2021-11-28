@@ -22,7 +22,9 @@ func routesHandler(w http.ResponseWriter, r *http.Request) {
 	case "/contact":
 		contactHandler(w, r)
 	default:
-		http.Error(w, "Page not found.", 404)
+		var errCode = http.StatusNotFound
+		var errMsg = http.StatusText(errCode)
+		http.Error(w, errMsg, errCode)
 	}
 }
 
